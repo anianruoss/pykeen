@@ -158,6 +158,9 @@ class ComplEx(EntityRelationEmbeddingModel):
             ]
         ]
 
+        if hasattr(self, 'fan_filter'):
+            h = self.fan_filter(h)
+
         # Compute scores
         scores = self.interaction_function(h=h, r=r, t=t)
 

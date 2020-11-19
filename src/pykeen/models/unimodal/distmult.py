@@ -138,6 +138,9 @@ class DistMult(EntityRelationEmbeddingModel):
         r = self.relation_embeddings(hrt_batch[:, 1])
         t = self.entity_embeddings(hrt_batch[:, 2])
 
+        if hasattr(self, 'fan_filter'):
+            raise NotImplementedError()
+
         # Compute score
         scores = self.interaction_function(h=h, r=r, t=t).view(-1, 1)
 
@@ -152,6 +155,9 @@ class DistMult(EntityRelationEmbeddingModel):
         r = self.relation_embeddings(hr_batch[:, 1]).view(-1, 1, self.embedding_dim)
         t = self.entity_embeddings.weight.view(1, -1, self.embedding_dim)
 
+        if hasattr(self, 'fan_filter'):
+            h = self.fan_filter(h.squeeze(1)).unsqueeze(1)
+
         # Rank against all entities
         scores = self.interaction_function(h=h, r=r, t=t)
 
@@ -165,6 +171,9 @@ class DistMult(EntityRelationEmbeddingModel):
         h = self.entity_embeddings.weight.view(1, -1, self.embedding_dim)
         r = self.relation_embeddings(rt_batch[:, 0]).view(-1, 1, self.embedding_dim)
         t = self.entity_embeddings(rt_batch[:, 1]).view(-1, 1, self.embedding_dim)
+
+        if hasattr(self, 'fan_filter'):
+            h = self.fan_filter(h.squeeze(0)).unsqueeze(0)
 
         # Rank against all entities
         scores = self.interaction_function(h=h, r=r, t=t)

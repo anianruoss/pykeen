@@ -98,6 +98,9 @@ class TransE(EntityRelationEmbeddingModel):
         r = self.relation_embeddings(hrt_batch[:, 1])
         t = self.entity_embeddings(hrt_batch[:, 2])
 
+        if hasattr(self, 'fan_filter'):
+            raise NotImplementedError()
+
         return -torch.norm(h + r - t, dim=-1, p=self.scoring_fct_norm, keepdim=True)
 
     def score_t(self, hr_batch: torch.LongTensor) -> torch.FloatTensor:  # noqa: D102
@@ -106,6 +109,9 @@ class TransE(EntityRelationEmbeddingModel):
         r = self.relation_embeddings(hr_batch[:, 1])
         t = self.entity_embeddings.weight
 
+        if hasattr(self, 'fan_filter'):
+            h = self.fan_filter(h)
+
         return -torch.norm(h[:, None, :] + r[:, None, :] - t[None, :, :], dim=-1, p=self.scoring_fct_norm)
 
     def score_h(self, rt_batch: torch.LongTensor) -> torch.FloatTensor:  # noqa: D102
@@ -113,5 +119,8 @@ class TransE(EntityRelationEmbeddingModel):
         h = self.entity_embeddings.weight
         r = self.relation_embeddings(rt_batch[:, 0])
         t = self.entity_embeddings(rt_batch[:, 1])
+
+        if hasattr(self, 'fan_filter'):
+            h = self.fan_filter(h)
 
         return -torch.norm(h[None, :, :] + r[:, None, :] - t[:, None, :], dim=-1, p=self.scoring_fct_norm)

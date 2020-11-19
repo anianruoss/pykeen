@@ -156,6 +156,9 @@ class RotatE(EntityRelationEmbeddingModel):
         r = self.relation_embeddings(hrt_batch[:, 1]).view(-1, self.real_embedding_dim, 2)
         t = self.entity_embeddings(hrt_batch[:, 2]).view(-1, self.real_embedding_dim, 2)
 
+        if hasattr(self, 'fan_filter'):
+            raise NotImplementedError()
+
         # Compute scores
         scores = self.interaction_function(h=h, r=r, t=t).view(-1, 1)
 
@@ -171,6 +174,9 @@ class RotatE(EntityRelationEmbeddingModel):
 
         # Rank against all entities
         t = self.entity_embeddings.weight.view(1, -1, self.real_embedding_dim, 2)
+
+        if hasattr(self, 'fan_filter'):
+            h = self.fan_filter(h.flatten(1, -1)).view(-1, 1, self.real_embedding_dim, 2)
 
         # Compute scores
         scores = self.interaction_function(h=h, r=r, t=t)
@@ -194,6 +200,9 @@ class RotatE(EntityRelationEmbeddingModel):
 
         # Rank against all entities
         h = self.entity_embeddings.weight.view(1, -1, self.real_embedding_dim, 2)
+
+        if hasattr(self, 'fan_filter'):
+            h = self.fan_filter(h.squeeze(0).flatten(1, -1)).view(1, -1, self.real_embedding_dim, 2)
 
         # Compute scores
         scores = self.interaction_function(h=t, r=r_inv, t=h)

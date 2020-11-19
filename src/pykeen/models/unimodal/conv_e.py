@@ -338,6 +338,9 @@ class ConvE(EntityRelationEmbeddingModel):
         )
         t = self.entity_embeddings(hrt_batch[:, 2])
 
+        if hasattr(self, 'fan_filter'):
+            raise NotImplementedError()
+
         # Embedding Regularization
         self.regularize_if_necessary(h, r, t)
 
@@ -371,6 +374,14 @@ class ConvE(EntityRelationEmbeddingModel):
         )
         t = self.entity_embeddings.weight.transpose(1, 0)
 
+        if hasattr(self, 'fan_filter'):
+            h = self.fan_filter(h.flatten(1, -1)).view(
+                -1,
+                self.input_channels,
+                self.embedding_height,
+                self.embedding_width,
+            )
+
         # Embedding Regularization
         self.regularize_if_necessary(h, r, t)
 
@@ -392,6 +403,9 @@ class ConvE(EntityRelationEmbeddingModel):
             self.embedding_width,
         )
         t = self.entity_embeddings(rt_batch[:, 1])
+
+        if self.fan_filter is not None:
+            raise NotImplementedError()
 
         # Embedding Regularization
         self.regularize_if_necessary(h, r, t)
