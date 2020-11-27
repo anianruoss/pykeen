@@ -112,6 +112,7 @@ in ``pykeen``.
 | umls          | `pykeen.datasets.UMLS`          | The UMLS data set.                                                                                 |
 | wn18          | `pykeen.datasets.WN18`          | The WN18 data set.                                                                                 |
 | wn18rr        | `pykeen.datasets.WN18RR`        | The WN18-RR data set.                                                                              |
+| yago3         | `pykeen.datasets.YAGO3`         | The full YAGO3 data set.                                                                           |
 | yago310       | `pykeen.datasets.YAGO310`       | The YAGO3-10 data set is a subset of YAGO3 that only contains entities with at least 10 relations. |
 
 ### Models (23)
@@ -256,7 +257,7 @@ pykeen experiments ablation ~/path/to/config.json
 
 ## Contributing
 
-Contributions, whether filing an issue, making a pull request, or forking, are appreciated. 
+Contributions, whether filing an issue, making a pull request, or forking, are appreciated.
 See [CONTRIBUTING.md](/CONTRIBUTING.md) for more information on getting involved.
 
 ## Acknowledgements

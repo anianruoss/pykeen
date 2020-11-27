@@ -15,7 +15,7 @@ from .nations import Nations
 from .openbiolink import OpenBioLink, OpenBioLinkF1, OpenBioLinkF2, OpenBioLinkLQ
 from .umls import UMLS
 from .wordnet import WN18, WN18RR
-from .yago import YAGO310
+from .yago import YAGO3, YAGO310
 from ..triples import TriplesFactory
 from ..utils import normalize_string, normalized_lookup
 
@@ -32,6 +32,7 @@ __all__ = [
     'FB15k237',
     'WN18',
     'WN18RR',
+    'YAGO3',
     'YAGO310',
     'get_dataset',
 ]
@@ -49,6 +50,7 @@ _DATASETS: Set[Type[DataSet]] = {
     OpenBioLinkLQ,
     WN18,
     WN18RR,
+    YAGO3,
     YAGO310,
 }
 
