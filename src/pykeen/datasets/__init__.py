@@ -16,6 +16,7 @@ from .openbiolink import OpenBioLink, OpenBioLinkF1, OpenBioLinkF2, OpenBioLinkL
 from .umls import UMLS
 from .wordnet import WN18, WN18RR
 from .yago import YAGO3, YAGO310
+from .wikidata import WIKIDATA
 from ..triples import TriplesFactory
 from ..utils import normalize_string, normalized_lookup
 
@@ -34,6 +35,7 @@ __all__ = [
     'WN18RR',
     'YAGO3',
     'YAGO310',
+    'WIKIDATA',
     'get_dataset',
 ]
 
@@ -48,6 +50,7 @@ _DATASETS: Set[Type[DataSet]] = {
     OpenBioLinkF1,
     OpenBioLinkF2,
     OpenBioLinkLQ,
+    WIKIDATA,
     WN18,
     WN18RR,
     YAGO3,
