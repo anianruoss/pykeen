@@ -17,6 +17,7 @@ from .umls import UMLS
 from .wordnet import WN18, WN18RR
 from .yago import YAGO3, YAGO310
 from .wikidata import WIKIDATA
+from .dbpedia_fan import DBPEDIA_FAN
 from ..triples import TriplesFactory
 from ..utils import normalize_string, normalized_lookup
 
@@ -29,13 +30,14 @@ __all__ = [
     'OpenBioLinkF2',
     'OpenBioLinkLQ',
     'UMLS',
+    'DBPEDIA_FAN'
     'FB15k',
     'FB15k237',
+    'WIKIDATA',
     'WN18',
     'WN18RR',
     'YAGO3',
     'YAGO310',
-    'WIKIDATA',
     'get_dataset',
 ]
 
@@ -43,6 +45,7 @@ _DATASETS: Set[Type[DataSet]] = {
     Nations,
     Kinships,
     UMLS,
+    DBPEDIA_FAN,
     FB15k,
     FB15k237,
     Hetionet,
